@@ -4,9 +4,8 @@ This project implements a secure Federated Learning (FL) pipeline using Flower a
 It simulates a real-world distributed environment with a central server and multiple clients
 running on separate machines, communicating over TLS and authenticated keys.
 
-The project was developed as part of an internship and focuses on secure communication,
-federated training with heterogeneous data sizes, and comparison between centralized and
-federated learning approaches.
+The project was developed as part of an internship at Altera Digital Health, conducted within the framework of the Starship academic internship program at Ben-Gurion University of the Negev, and focuses on secure communication in distributed systems, federated training with heterogeneous client data sizes, and a practical comparison between centralized and federated learning approaches in a real-world, healthcare-oriented setting.
+
 
 ---
 
