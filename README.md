@@ -10,7 +10,7 @@ federated learning approaches.
 
 ---
 
-PROJECT STRUCTURE
+## Project Structure
 ```text
 FEDERATED-LEARNING-XGBOOST/
 |
@@ -49,11 +49,11 @@ FEDERATED-LEARNING-XGBOOST/
 ```
 ---
 
-DATASET DESCRIPTION
+## Dataset Description
 
 The dataset used in this project is:
 BRFSS 2015 – Diabetes Health Indicators  
-File: diabetes_binary_5050split_health_indicators_BRFSS2015.csv
+File: `diabetes_binary_5050split_health_indicators_BRFSS2015.csv`
 
 This dataset was selected because:
 - It represents a realistic healthcare-related binary classification task
@@ -66,7 +66,7 @@ https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset?re
 
 ---
 
-DATASET SPLITTING AND FEDERATED SETUP
+## Dataset Splitting and Federated Setup
 
 The full dataset was intentionally split into three parts with different sizes:
 - 10%
@@ -75,7 +75,7 @@ The full dataset was intentionally split into three parts with different sizes:
 
 Each split represents a different federated client.
 
-IMPORTANT PRIVACY GUARANTEE
+## Important Privacy Guarantee
 
 - The raw data never leaves the organization or the client machine
 - Each client trains locally on its own private dataset
@@ -84,7 +84,7 @@ IMPORTANT PRIVACY GUARANTEE
 
 ---
 
-CLEARML INTEGRATION
+## ClearML Integration
 
 The server component is integrated with ClearML for experiment tracking and logging.
 
@@ -94,7 +94,7 @@ The server component is integrated with ClearML for experiment tracking and logg
 
 ---
 
-PREREQUISITES
+## Prerequisites
 
 - Python 3.x
 - OpenSSL
@@ -105,24 +105,21 @@ PREREQUISITES
 
 ---
 
-CONFIGURATION NOTES (SERVER IP)
+## Configuration Notes (Server IP)
 
 Before running the system, the server IP address must be updated manually in all of
 the following locations:
 
-1) certificate.conf  
-- Update IP.4 before generating server certificates
+1) `certificate.conf` - Update IP.4 before generating server certificates
 
-2) pyproject.toml (server and clients)  
-- Update the remote federation address (host:port)
+2) `pyproject.toml` (server and clients) - Update the remote federation address (host:port)
 
-3) run_supernodes.sh (clients)  
-- Update the server hostname or IP used for connection
+3) `run_supernodes.sh` (clients) - Update the server hostname or IP used for connection
 
 ---
 
-CERTIFICATE AND KEY MANAGEMENT
-
+## Certificate and Key Management
+### TLS Certificates
 TLS Certificates are generated on the server machine using `generate_server_cert.ps1`.
 
 After running this script, the following files are created in `server/certificates/`:
@@ -132,13 +129,14 @@ After running this script, the following files are created in `server/certificat
 - ca.crt              (CA public certificate – pre-existing)
 - ca.key              (CA private key – pre-existing)
 
+### Authentication Keys
 Authentication keys are generated using `generate_auth_keys.sh`.
 
 After running this script, the following files are created:
 - Client private authentication keys (one per client)
 - Client public authentication keys (one per client)
 
-Manual distribution is required:
+### Manual distribution is required:
 - Client private keys ( must be copied manually to `client/keys/` on the corresponding client machine
 - Client public keys (*.pub) must be copied manually to `server/keys/` on the server machine
 - Each client machine must contain a copy of the `ca.crt` file in its certificates directory in order to verify the server’s TLS certificate.
@@ -150,7 +148,7 @@ IMPORTANT:
 
 ---
 
-HOW TO RUN THE PROJECT
+## How to Run the Project
 
 Step 1 - Generate Server Certificates (Server Machine)  
 Run `generate_server_cert.ps1`
@@ -176,7 +174,7 @@ metrics, and saved artifacts.
 
 ---
 
-EXPERIMENTAL DESIGN NOTES
+## Experimental Design Notes
 
 The project intentionally uses non-uniform data splits across clients to simulate
 heterogeneous real-world environments and analyze the effect of data size on
@@ -184,9 +182,22 @@ federated convergence and performance.
 
 ---
 
-NOTES
+## Notes
 
 - No certificates, keys, or sensitive data are included in this repository
 - All security-related artifacts are generated and distributed manually
 - ClearML integration is handled exclusively on the server side
 - The repository reflects the actual execution structure used during development
+
+---
+## Project Presentation
+
+This repository also includes a project presentation that provides a high-level overview of the work.
+
+The presentation explains:
+- The motivation for using Federated Learning in this project
+- The overall system architecture (server–client setup)
+- How Flower and XGBoost are integrated in a federated setting
+- The data distribution strategy across clients (non-uniform splits)
+- Key design decisions related to privacy, security, and deployment
+- A comparison between centralized and federated learning approaches
